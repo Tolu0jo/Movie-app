@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import MovieListing from "../MovieListing/MovieListing"
 import "./home.scss"
 import { useDispatch } from "react-redux"
-import { fetchMoviesAsync, fetchShowsAsync } from "../../features/movies/movieSlice"
+import { fetchMoviesAsync, fetchShowsAsync } from "../../features/movies/apiCall"
 import { AppDispatch } from "../../features/store"
 
 const Home = () => {
@@ -10,8 +10,8 @@ const Home = () => {
 
 useEffect(()=>{
 
-dispatch(fetchMoviesAsync())
-dispatch(fetchShowsAsync())
+dispatch(fetchMoviesAsync("Harry"))
+dispatch(fetchShowsAsync("Friends"))
 },[dispatch]);
   
   return (

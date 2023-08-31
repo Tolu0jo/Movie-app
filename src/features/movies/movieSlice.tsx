@@ -1,50 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import movieApi from "../../common/apis/movieApi";
-import { APIKey } from "../../common/apis/MovieApiKey";
-
-export const fetchMoviesAsync = createAsyncThunk(
-  "movies/fetchMoviesAsync",
-  async () => {
-    const movieText = "Harry";
-
-    const response = await movieApi.get(
-      `?apikey=${APIKey}&s=${movieText}&type=movie`
-    );
-
-    return response.data;
-  }
-);
-
-export const fetchShowsAsync = createAsyncThunk(
-    "shows/fetchMoviesAsync",
-    async () => {
-      const seriesText = "Friends";
-  
-      const response = await movieApi.get(
-        `?apikey=${APIKey}&s=${seriesText}&type=series`
-      );
-  
-      return response.data;
-    }
-  );
-
-  export const fetchMovieDetailAsync = createAsyncThunk(
-    "movie/fetchMovieAsync",
-    async (id:string) => {
-    
-  
-      const response = await movieApi.get(
-        `?apikey=${APIKey}&i=${id}&Plot=full`
-      );
-  
-      return response.data;
-    }
-  );
+import { createSlice} from "@reduxjs/toolkit";
+import { fetchMovieDetailAsync, fetchMoviesAsync, fetchShowsAsync } from "./apiCall";
 
 const initialState = {
   movies: {},
   shows:{},
   selectedMovie:{},
+  pending: false
 };
 
 const movieSlice = createSlice({
@@ -57,8 +18,8 @@ const movieSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchMoviesAsync.pending, () => {
-        console.log("pending");
+      .addCase(fetchMoviesAsync.pending, (state) => {
+        return {...state,pending:true}
       })
       .addCase(fetchMoviesAsync.fulfilled, (state, { payload }) => {
         console.log("fulfilled");
@@ -77,7 +38,7 @@ const movieSlice = createSlice({
       })
   },
 });
-
+export const pending =(state:any)=> state.movies.pending
 export const {removeSelectedMovie} = movieSlice.actions;
 export const getAllMovies = (state: any) => state.movies.movies;
 export const getAllShows = (state: any) => state.movies.shows;

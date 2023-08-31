@@ -3,6 +3,7 @@ import { getAllMovies, getAllShows } from "../../features/movies/movieSlice"
 import MovieCard from "../MovieCard/MovieCard";
 import { Imovie } from "../../common/interface";
 import "./movielisting.scss"
+
 import Slider from "react-slick"
 import { settings } from "../../common/settings";
 const Movielisting = () => {

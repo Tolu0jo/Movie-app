@@ -1,9 +1,10 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { fetchMovieDetailAsync, getSelecteMovie, removeSelectedMovie } from "../../features/movies/movieSlice"
+import { getSelecteMovie, removeSelectedMovie } from "../../features/movies/movieSlice"
 import { AppDispatch } from "../../features/store"
 import "./movieDetail.scss"
+import { fetchMovieDetailAsync } from "../../features/movies/apiCall"
 const MovieDetail = () => {
   const data = useSelector(getSelecteMovie)
   const {imdbID}=useParams()
